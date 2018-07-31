@@ -28,10 +28,10 @@ class Transaction {
 */
 class Block {
   /*
-  * index，当前Block的序号
   * timestamp，当前Block的时间戳
   * data，当前Block包含的数据
   * previousHash，前一个Block的Hash值
+  * nonce，区块内部生成的随机数
   */
   constructor (timestamp, transactions, previousHash = '') {
     this.timestamp = timestamp
@@ -171,6 +171,10 @@ PhocusCoin.minePendingTransactions('Steve-Wallet-Address')
 console.log('\n 您的账户余额为：' + PhocusCoin.getBalanceOfAddress('Steve-Wallet-Address'))
 
 console.log(JSON.stringify(PhocusCoin, null, 4))
+
+// End of the code
+
+
 
 
 
