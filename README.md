@@ -9,3 +9,7 @@ $ npm install
 ```sh
 $ node block.js
 ```
+或者
+```sh
+$ node transaction.js
+```
