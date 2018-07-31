@@ -63,6 +63,7 @@ class Block {
       this.nonce++
       this.hash = this.calculateHash()
     }
+    console.log('恭喜，挖矿成功：' + this.hash)
   }
 }
 
@@ -97,11 +98,14 @@ class Blockchain {
   minePendingTransactions (miningRewardAddress) {
   	// 选择需要进行挖矿的待产生交易
   	let block = new Block(Date.now(), this.pendingTransactions)
-  	// 开始挖矿Start Mining...
+    // 获取当前最新Block的hash值，赋值给新添加Block区块的previousHash属性
+    block.previousHash = this.getLatestBlock().hash
+  	// 开始挖矿
   	block.mineBlock(this.difficulty)
-    console.log('\n 恭喜，挖矿成功：' + block.hash)
+    // 挖矿成功后，将新的Block添加至区块链数组中
     this.chain.push(block)
     // 给挖矿成功者发放奖励，进入待产生交易数组中
+    // 由于发放奖励没有fromAddress地址，所以为null
     this.pendingTransactions = [
    		new Transaction(null, miningRewardAddress, this.miningReward)
    	]
@@ -157,7 +161,6 @@ class Blockchain {
 let PhocusCoin = new Blockchain()
 PhocusCoin.createTransaction(new Transaction('address1', 'address2', 100))
 PhocusCoin.createTransaction(new Transaction('address2', 'address3', 80))
-PhocusCoin.createTransaction(new Transaction('address3', 'address1', 50))
 
 console.log('\n 开始挖矿Start Mining...')
 PhocusCoin.minePendingTransactions('Steve-Wallet-Address')
